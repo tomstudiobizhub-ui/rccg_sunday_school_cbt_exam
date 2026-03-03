@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCCG Sunday School 2nd Quarter Examination</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        :root {
+            --rccg-blue: #0033A0;
+            --rccg-blue-light: #0044CC;
+            --rccg-blue-dark: #002280;
+            --white: #FFFFFF;
+            --green: #00cc66;
+            --green-dark: #00994d;
+            --red: #ff3366;
+            --gold: #FFD700;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(0, 51, 160, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--rccg-blue) 0%, var(--rccg-blue-dark) 50%, #001a50 100%);
+            min-height: 100vh;
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            padding: 40px;
+            margin: 20px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            object-fit: contain;
+            background: var(--white);
+            padding: 10px;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--rccg-blue);
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header h2 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .login-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--white);
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .form-group select option {
+            background: var(--rccg-blue);
+            color: var(--white);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--rccg-blue);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--rccg-blue);
+        }
+
+        .btn-submit {
+            background: var(--green);
+            color: var(--white);
+            padding: 12px 30px;
+            box-shadow: 0 4px 15px rgba(0, 204, 102, 0.4);
+            font-size: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 204, 102, 0.6);
+        }
+
+        .btn-submit-large {
+            padding: 15px 50px;
+            font-size: 1.2rem;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .exam-container {
+            display: none;
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .student-info {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .student-info span {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green), var(--rccg-blue-light));
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--white);
+        }
+
+        .option.selected {
+            background: var(--white);
+            color: var(--rccg-blue);
+            border-color: var(--white);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        .option input[type="radio"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: var(--rccg-blue);
+        }
+
+        .option.selected input[type="radio"] {
+            accent-color: var(--green);
+        }
+
+        .navigation-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .question-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 600px;
+        }
+
+        .palette-btn {
+            width: 42px;
+            height: 42px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .palette-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .palette-btn.active {
+            background: var(--white);
+            color: var(--rccg-blue);
+            border-color: var(--white);
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .palette-btn.answered {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .palette-btn.answered::after {
+            content: '✓';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--white);
+            color: var(--green);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* TIMER STYLE - In Navigation Area */
+        .nav-timer {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums;
+            min-width: 120px;
+            text-align: center;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-timer.warning {
+            background: rgba(255, 50, 50, 0.9);
+            color: #fff;
+            animation: pulse 1s infinite;
+            border-color: #ff0000;
+        }
+
+        .nav-timer.grace {
+            background: rgba(255, 215, 0, 0.9);
+            color: #000;
+            animation: pulse 0.5s infinite;
+            border-color: #FFD700;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+        }
+
+        .result-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .score-display {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px currentColor; }
+            50% { box-shadow: 0 0 40px currentColor; }
+        }
+
+        .grade-A-plus { background: linear-gradient(135deg, #00ff00, #00cc00); color: #000; }
+        .grade-A { background: linear-gradient(135deg, #00cc00, #009900); color: #fff; }
+        .grade-B { background: linear-gradient(135deg, #009900, #006600); color: #fff; }
+        .grade-C { background: linear-gradient(135deg, #ffcc00, #ff9900); color: #000; }
+        .grade-D { background: linear-gradient(135deg, #ff9900, #ff6600); color: #000; }
+        .grade-F { background: linear-gradient(135deg, #ff0000, #cc0000); color: #fff; }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .answer-review {
+            text-align: left;
+            margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+
+        .review-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 5px solid;
+            page-break-inside: avoid;
+        }
+
+        .review-item.correct {
+            background: rgba(0, 255, 100, 0.15);
+            border-left-color: #00ff00;
+        }
+
+        .review-item.wrong {
+            background: rgba(255, 100, 100, 0.15);
+            border-left-color: #ff0000;
+        }
+
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .review-answer {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .review-answer strong {
+            color: var(--gold);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .birthday-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .birthday-content {
+            background: linear-gradient(135deg, var(--rccg-blue), var(--rccg-blue-dark));
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 500px;
+            animation: bounceIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .birthday-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .birthday-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .birthday-message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* WELCOME POPUP - Shows BEFORE login */
+        .welcome-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-content {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            max-width: 600px;
+            max-height: 700px;
+            position: relative;
+            animation: zoomIn 0.4s ease;
+            width: 90%;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .welcome-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--rccg-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-close:hover {
+            background: var(--red);
+            transform: rotate(90deg);
+        }
+
+        .welcome-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        /* ADS POPUP - Shows on RESULT page */
+        .ads-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ads-content {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            max-width: 600px;
+            max-height: 700px;
+            position: relative;
+            animation: zoomIn 0.4s ease;
+            width: 90%;
+        }
+
+        .ads-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--rccg-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .ads-close:hover {
+            background: var(--red);
+            transform: rotate(90deg);
+        }
+
+        .ads-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        /* GRACE PERIOD POPUP */
+        .grace-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff9900, #ff6600);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 6000;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            animation: slideIn 0.5s ease;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        @keyframes slideIn {
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        .grace-popup h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .grace-popup p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            animation: fall 3s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .warning-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .warning-content {
+            background: linear-gradient(135deg, #cc0000, #990000);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 450px;
+        }
+
+        .warning-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .warning-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .warning-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .print-header {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid var(--rccg-blue);
+            margin-bottom: 20px;
+        }
+
+        .print-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+
+        .print-header h1 {
+            color: var(--rccg-blue);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .print-header h2 {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .print-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .print-info-item {
+            padding: 8px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .print-info-label {
+            font-weight: bold;
+            color: var(--rccg-blue);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .print-info-value {
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            body {
+                background: white;
+                color: black;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .background-pattern, .btn, .navigation-container, .footer, .exam-container, .login-form, .welcome-popup, .ads-popup, .birthday-popup, .warning-modal, .grace-popup, .scroll-to-top {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .glass-card {
+                background: white;
+                border: 2px solid var(--rccg-blue);
+                box-shadow: none;
+                color: black;
+                padding: 20px;
+                margin: 0;
+                border-radius: 0;
+            }
+            .header {
+                display: none;
+            }
+            .result-container {
+                display: block !important;
+                color: black;
+            }
+            .print-header {
+                display: block;
+            }
+            .result-stats, .answer-review {
+                color: black;
+            }
+            .stat-card {
+                background: #f5f5f5;
+                color: black;
+                border: 1px solid #ddd;
+            }
+            .review-item.correct {
+                background: #e8f5e9;
+                border-left-color: #00cc66;
+            }
+            .review-item.wrong {
+                background: #ffebee;
+                border-left-color: #ff3366;
+            }
+            .grade-badge {
+                color: black;
+                border: 2px solid var(--rccg-blue);
+                background: #f0f0f0;
+                box-shadow: none;
+                animation: none;
+            }
+            .score-display {
+                color: var(--rccg-blue);
+                text-shadow: none;
+            }
+            .result-icon {
+                animation: none;
+            }
+            .answer-review {
+                max-height: none;
+                overflow: visible;
+                border: 1px solid #ddd;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header h2 {
+                font-size: 1rem;
+            }
+            .exam-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .student-info {
+                justify-content: center;
+            }
+            .question-text {
+                font-size: 1.1rem;
+            }
+            .question-palette {
+                justify-content: center;
+            }
+            .navigation-container {
+                flex-direction: column;
+            }
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            .glass-card {
+                padding: 20px;
+            }
+            .score-display {
+                font-size: 3rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .palette-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+            }
+            .result-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            .welcome-content, .ads-content {
+                max-width: 95%;
+                margin: 20px;
+            }
+            .nav-timer {
+                font-size: 1.2rem;
+                padding: 8px 20px;
+                min-width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .option {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+            .result-icon {
+                font-size: 3.5rem;
+            }
+            .grade-badge {
+                font-size: 2rem;
+                padding: 12px 35px;
+            }
+            .nav-timer {
+                font-size: 1.1rem;
+                padding: 8px 15px;
+                min-width: 90px;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            color: var(--rccg-blue);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .scroll-to-top.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+
+    <!-- Birthday Popup (Jan 7 only) -->
+    <div class="birthday-popup" id="birthdayPopup">
+        <div class="birthday-content">
+            <div class="birthday-emoji">🎂🎉</div>
+            <h2 class="birthday-title">Happy Birthday Daddy G.O!</h2>
+            <p class="birthday-message">
+                We celebrate our beloved General Overseer, 
+                Pastor E.A. Adeboye, on this special day! 
+                May God continue to strengthen you for the work ahead.
+            </p>
+            <button class="btn btn-primary" onclick="closeBirthdayPopup()">Thank You! 🙏</button>
+        </div>
+    </div>
+
+    <!-- WELCOME POPUP - Shows BEFORE Login/Registration -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="welcome-content">
+            <button class="welcome-close" onclick="closeWelcomePopup()">×</button>
+            <!-- *** INSERT YOUR WELCOME IMAGE URL BELOW *** -->
+            <img src="daddy g.o.jpeg" alt="Welcome" class="welcome-image" id="welcomeImageElement">
+        </div>
+    </div>
+
+    <!-- ADS POPUP - Shows on RESULT Page -->
+    <div class="ads-popup" id="adsPopup">
+        <div class="ads-content">
+            <button class="ads-close" onclick="closeAdsPopup()">×</button>
+            <!-- *** INSERT YOUR ADS IMAGE URL BELOW *** -->
+            <img src="tsta ads.jpeg" alt="Advertisement" class="ads-image" id="adsImageElement">
+        </div>
+    </div>
+
+    <!-- GRACE PERIOD POPUP -->
+    <div class="grace-popup" id="gracePopup">
+        <h3>⏰ Grace Period Started!</h3>
+        <p>Your 15 minutes is complete.</p>
+        <p style="font-weight: bold; font-size: 1.3rem;">You have 3 additional minutes!</p>
+        <button class="btn btn-primary" onclick="closeGracePopup()">Continue Exam</button>
+    </div>
+
+    <!-- Warning Modal -->
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-content">
+            <div class="warning-icon">⚠️</div>
+            <h2 class="warning-title">Warning!</h2>
+            <p class="warning-text">
+                Attempting to refresh or leave the exam will result in automatic submission. 
+                Are you sure you want to continue?
+            </p>
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="stayOnPage()">Stay on Page</button>
+                <button class="btn btn-primary" onclick="submitExam()">Submit Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Print Header -->
+        <div class="print-header" id="printHeader">
+            <img src="rccglogo.png" alt="RCCG Logo" onerror="this.style.display='none'">
+            <h1>RCCG Sunday School</h1>
+            <h2>2nd Quarter Examination Result</h2>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="rccglogo.png" alt="RCCG Logo" class="logo" onerror="this.style.display='none'; document.getElementById('logoPlaceholder').style.display='flex'">
+                <div class="logo-placeholder" id="logoPlaceholder" style="display:none">
+                    RCCG<br>Logo
+                </div>
+            </div>
+            <h1>RCCG Sunday School</h1>
+            <h2>2nd Quarter Examination</h2>
+        </div>
+
+        <!-- Login Page -->
+        <div class="glass-card login-form" id="loginPage">
+            <h2 style="text-align: center; margin-bottom: 30px;">Student Registration</h2>
+            <div class="form-group">
+                <label for="studentName">Full Name</label>
+                <input type="text" id="studentName" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="parishName">Parish Name</label>
+                <input type="text" id="parishName" placeholder="Enter your parish name" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="area">Area</label>
+                    <input type="text" id="area" placeholder="Enter Area" required>
+                </div>
+                <div class="form-group">
+                    <label for="zone">Zone</label>
+                    <input type="text" id="zone" placeholder="Enter Zone" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="branch">Province/Region</label>
+                <input type="text" id="branch" placeholder="Enter Province" required>
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="startExam()">Start Examination</button>
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                ⏱️ Duration: 15 Minutes + 3 Minutes Grace | 📝 50 Questions
+            </p>
+        </div>
+
+        <!-- Exam Container -->
+        <div class="glass-card exam-container" id="examContainer">
+            <div class="exam-header">
+                <div class="student-info">
+                    <span id="displayStudentName">👤 </span>
+                    <span id="displayParish">🏛️ </span>
+                    <span id="displayArea">📍 </span>
+                    <span id="displayZone">🗺️ </span>
+                </div>
+                <div>
+                    <button class="btn btn-submit" onclick="confirmSubmit()">✓ Submit Exam</button>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progressText">Question 1 of 50 (0% Complete)</div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-number" id="questionNumber">Question 1</div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options-container" id="optionsContainer"></div>
+            </div>
+
+            <div class="navigation-container">
+                <div class="question-palette" id="questionPalette"></div>
+                <div class="nav-buttons">
+                    <!-- TIMER - Before Previous Button -->
+                    <div class="nav-timer" id="navTimer">15:00</div>
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">← Previous</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Next →</button>
+                    <button class="btn btn-submit btn-submit-large" id="submitBtnBottom" onclick="confirmSubmit()" style="display:none;">✓ Submit Exam</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div class="glass-card result-container" id="resultContainer">
+            <div class="result-header">
+                <div class="result-icon" id="resultIcon">🎉</div>
+                <h2>Examination Result</h2>
+                <p id="resultStudentName" style="font-size: 1.2rem; margin-top: 10px;"></p>
+                <p id="resultParishInfo" style="opacity: 0.8; font-size: 0.9rem;"></p>
+            </div>
+
+            <div class="score-display" id="scoreDisplay">0/50</div>
+            <div class="grade-badge" id="gradeBadge">F</div>
+
+            <div class="result-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="correctCount" style="color: #00ff00;">0</div>
+                    <div class="stat-label">✓ Correct</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="wrongCount" style="color: #ff3366;">0</div>
+                    <div class="stat-label">✗ Wrong</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="percentage">0%</div>
+                    <div class="stat-label">Percentage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="timeTaken">0:00</div>
+                    <div class="stat-label">Time Taken</div>
+                </div>
+            </div>
+
+            <div class="print-info" id="printInfo">
+                <div class="print-info-item">
+                    <div class="print-info-label">Candidate Name</div>
+                    <div class="print-info-value" id="printName">-</div>
+                </div>
+                <div class="print-info-item">
+                    <div class="print-info-label">Parish</div>
+                    <div class="print-info-value" id="printParish">-</div>
+                </div>
+                <div class="print-info-item">
+                    <div class="print-info-label">Area</div>
+                    <div class="print-info-value" id="printArea">-</div>
+                </div>
+                <div class="print-info-item">
+                    <div class="print-info-label">Zone</div>
+                    <div class="print-info-value" id="printZone">-</div>
+                </div>
+                <div class="print-info-item">
+                    <div class="print-info-label">Exam Date</div>
+                    <div class="print-info-value" id="printDate">-</div>
+                </div>
+                <div class="print-info-item">
+                    <div class="print-info-label">Grade</div>
+                    <div class="print-info-value" id="printGrade">-</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 20px 0 15px; text-align: left; font-size: 1.1rem;">📋 Answer Review</h3>
+            <div class="answer-review" id="answerReview"></div>
+
+            <div class="btn-container" style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="printResult()">📄 Print PDF Result</button>
+                <button class="btn btn-secondary" onclick="restartExam()">🔄 New Exam</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Powered by <a href="#" onclick="return false;">Tomstudio Tech Academy</a> © 2026</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">RCCG Sunday School 2nd Quarter Examination System</p>
+            <p style="margin-top: 5px; font-size: 0.75rem; opacity: 0.6;">All Rights Reserved | Secure CBT Platform</p>
+        </div>
+    </div>
+
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // ==================== QUESTIONS DATA ====================
+        const questions = [
+            { question: "1. What is meant by the 'Eye Gate'?", options: ["The discipline of guarding what we see", "A physical church entrance", "A leadership position", "A type of prayer"], answer: 0 },
+            { question: "2. Which biblical character fell due to uncontrolled sight?", options: ["Joseph", "David", "Daniel", "Nehemiah"], answer: 1 },
+            { question: "3. What is one danger of exposing the eye to sinful content?", options: ["Spiritual growth", "Purity of heart", "Moral corruption", "Divine favour"], answer: 2 },
+            { question: "4. How can believers guard their eye gate?", options: ["Watch anything freely", "Be intentional about what they view", "Ignore conviction", "Follow trends"], answer: 1 },
+            { question: "5. The eye gate influences which of the following?", options: ["Imagination and thoughts", "Weather", "Time", "Language"], answer: 0 },
+            { question: "6. What is the 'Ear Gate'?", options: ["Listening to edifying messages", "A musical instrument", "Church microphone", "Prayer room"], answer: 0 },
+            { question: "7. Wrong listening can lead to?", options: ["Faith increase", "Spiritual confusion", "Revival", "Wisdom"], answer: 1 },
+            { question: "8. Christians should avoid listening to?", options: ["Godly counsel", "Worship songs", "Gossip and slander", "Sermons"], answer: 2 },
+            { question: "9. Faith comes by?", options: ["Seeing", "Hearing the Word", "Sleeping", "Talking"], answer: 1 },
+            { question: "10. Sanctifying the ear involves?", options: ["Filtering information", "Accepting everything", "Ignoring scripture", "Avoiding church"], answer: 0 },
+            { question: "11. The ultimate Game Changer in life is?", options: ["Money", "Connections", "Jesus Christ", "Education"], answer: 2 },
+            { question: "12. Prayer can change?", options: ["Nothing", "Situations", "History only", "Weather only"], answer: 1 },
+            { question: "13. Divine encounters produce?", options: ["Confusion", "Transformation", "Fear only", "Weakness"], answer: 1 },
+            { question: "14. Criticism can be?", options: ["Constructive or destructive", "Always evil", "Always good", "Irrelevant"], answer: 0 },
+            { question: "15. A believer should respond to criticism with?", options: ["Anger", "Humility", "Revenge", "Silence always"], answer: 1 },
+            { question: "16. Gratitude means?", options: ["Complaining", "Thankfulness", "Demanding more", "Pride"], answer: 1 },
+            { question: "17. Thanksgiving attracts?", options: ["God's presence", "Poverty", "Fear", "Judgment only"], answer: 0 },
+            { question: "18. Excellence means?", options: ["Mediocrity", "Doing your best for God", "Carelessness", "Laziness"], answer: 1 },
+            { question: "19. Daniel demonstrated?", options: ["Fear", "Compromise", "Excellence", "Weakness"], answer: 2 },
+            { question: "20. Integrity is?", options: ["Dishonesty", "Moral uprightness", "Double standard", "Hypocrisy"], answer: 1 },
+            { question: "21. A person of integrity is?", options: ["Unstable", "Trustworthy", "Deceptive", "Careless"], answer: 1 },
+            { question: "22. Christian leadership is based on?", options: ["Domination", "Service", "Pride", "Control"], answer: 1 },
+            { question: "23. Jesus modelled?", options: ["Servant leadership", "Pride", "Rebellion", "Fear"], answer: 0 },
+            { question: "24. Parents must train children in?", options: ["Worldliness", "Discipline and instruction of the Lord", "Rebellion", "Isolation"], answer: 1 },
+            { question: "25. Neglecting children spiritually leads to?", options: ["Strength", "Stability", "Moral decay", "Wisdom"], answer: 2 },
+            { question: "26. Civic responsibility includes?", options: ["Lawlessness", "Obeying lawful authority", "Violence", "Rebellion"], answer: 1 },
+            { question: "27. Christians influence society through?", options: ["Corruption", "Righteous living", "Silence always", "Isolation"], answer: 1 },
+            { question: "28. Democracy means?", options: ["Rule by one person", "Rule by the people", "Military rule", "Anarchy"], answer: 1 },
+            { question: "29. A principle of democracy is?", options: ["Oppression", "Participation", "Silencing voices", "Dictatorship"], answer: 1 },
+            { question: "30. Christians should participate in democracy by?", options: ["Voting responsibly", "Violence", "Rigging", "Silence"], answer: 0 },
+            { question: "31. The Holy Spirit helps believers to?", options: ["Live in sin", "Live righteously", "Ignore God", "Follow the world"], answer: 1 },
+            { question: "32. Fasting is primarily for?", options: ["Weight loss", "Spiritual strength", "Showing off", "Health only"], answer: 1 },
+            { question: "33. The Word of God is compared to?", options: ["A sword", "A shield", "Both sword and shield", "A book only"], answer: 2 },
+            { question: "34. Salvation is received through?", options: ["Good works", "Faith in Jesus", "Church membership", "Baptism only"], answer: 1 },
+            { question: "35. The fruit of the Spirit includes?", options: ["Anger", "Love", "Jealousy", "Pride"], answer: 1 },
+            { question: "36. Baptism symbolizes?", options: ["Death and resurrection", "Church joining", "Age maturity", "Family tradition"], answer: 0 },
+            { question: "37. The Great Commission is about?", options: ["Building churches", "Making disciples", "Collecting money", "Political power"], answer: 1 },
+            { question: "38. Tithing is giving?", options: ["10% of income", "5% of income", "Whatever you want", "Nothing"], answer: 0 },
+            { question: "39. The armor of God includes all EXCEPT?", options: ["Helmet of salvation", "Shield of faith", "Sword of pride", "Breastplate of righteousness"], answer: 2 },
+            { question: "40. Jesus rose from the dead on the?", options: ["First day", "Third day", "Seventh day", "Fortieth day"], answer: 1 },
+            { question: "41. The greatest commandment is to?", options: ["Love God", "Love neighbors", "Keep Sabbath", "Pay tithe"], answer: 0 },
+            { question: "42. The Bible was written over approximately?", options: ["100 years", "500 years", "1500 years", "5000 years"], answer: 2 },
+            { question: "43. Who wrote most of the New Testament?", options: ["Peter", "Paul", "John", "James"], answer: 1 },
+            { question: "44. The last book of the Bible is?", options: ["Acts", "Revelation", "Jude", "Hebrews"], answer: 1 },
+            { question: "45. Pentecost celebrates?", options: ["Jesus birth", "Holy Spirit coming", "Jesus resurrection", "Jesus ascension"], answer: 1 },
+            { question: "46. The Trinity consists of?", options: ["Father, Son, Holy Spirit", "Father, Mother, Child", "Pastor, Deacon, Member", "Heaven, Earth, Hell"], answer: 0 },
+            { question: "47. Christians are called to be?", options: ["Salt and light", "Rich and famous", "Powerful and strong", "Quiet and hidden"], answer: 0 },
+            { question: "48. The wages of sin is?", options: ["Death", "Life", "Prosperity", "Health"], answer: 0 },
+            { question: "49. Eternal life is a gift through?", options: ["Jesus Christ", "Good deeds", "Church attendance", "Prayer only"], answer: 0 },
+            { question: "50. The final judgment will be by?", options: ["Jesus Christ", "Angels", "Church leaders", "Government"], answer: 0 }
+        ];
+
+        // ==================== TIMER VARIABLES ====================
+        let currentQuestion = 0;
+        let userAnswers = new Array(50).fill(null);
+        let timerInterval = null;
+        let timeRemaining = 900; // 15 minutes in seconds
+        let gracePeriodActive = false;
+        let examStartTime = null;
+        let examEndTime = null;
+        let studentData = {};
+        let timerRunning = false;
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            checkBirthday();
+            setupSecurity();
+            setupScrollButton();
+            // Show welcome popup on page load
+            setTimeout(function() {
+                document.getElementById('welcomePopup').style.display = 'flex';
+            }, 500);
+            // Initialize timer display
+            updateTimerDisplay();
+        });
+
+        function checkBirthday() {
+            const today = new Date();
+            if (today.getMonth() === 0 && today.getDate() === 7) {
+                document.getElementById('birthdayPopup').style.display = 'flex';
+                createConfetti();
+            }
+        }
+
+        function closeBirthdayPopup() {
+            document.getElementById('birthdayPopup').style.display = 'none';
+        }
+
+        // ==================== WELCOME POPUP (Before Login) ====================
+        function closeWelcomePopup() {
+            document.getElementById('welcomePopup').style.display = 'none';
+        }
+
+        // ==================== ADS POPUP (On Result Page) ====================
+        function closeAdsPopup() {
+            document.getElementById('adsPopup').style.display = 'none';
+        }
+
+        // ==================== GRACE POPUP ====================
+        function closeGracePopup() {
+            document.getElementById('gracePopup').style.display = 'none';
+        }
+
+        function setupSecurity() {
+            document.addEventListener('contextmenu', function(e) { 
+                showWarning('Right-click is disabled during examination.'); 
+                e.preventDefault(); 
+                return false; 
+            });
+            document.addEventListener('copy', function(e) { 
+                showWarning('Copying is disabled during examination.'); 
+                e.preventDefault(); 
+            });
+            document.addEventListener('cut', function(e) { 
+                showWarning('Cutting is disabled during examination.'); 
+                e.preventDefault(); 
+            });
+            document.addEventListener('paste', function(e) { 
+                showWarning('Pasting is disabled during examination.'); 
+                e.preventDefault(); 
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'r') || (e.ctrlKey && e.key === 'p') || (e.ctrlKey && e.key === 'c')) {
+                    showWarning('This action is disabled during examination.');
+                    e.preventDefault(); 
+                    return false;
+                }
+            });
+            window.addEventListener('beforeunload', function(e) {
+                if (document.getElementById('examContainer').style.display === 'block') {
+                    e.preventDefault(); 
+                    e.returnValue = 'Your exam will be submitted if you leave this page.';
+                }
+            });
+        }
+
+        function showWarning(message) {
+            alert('⚠️ ' + message);
+        }
+
+        function stayOnPage() { 
+            document.getElementById('warningModal').style.display = 'none'; 
+        }
+
+        // ==================== EXAM START ====================
+        function startExam() {
+            const name = document.getElementById('studentName').value.trim();
+            const parish = document.getElementById('parishName').value.trim();
+            const area = document.getElementById('area').value.trim();
+            const zone = document.getElementById('zone').value.trim();
+            const branch = document.getElementById('branch').value.trim();
+            
+            if (!name || !parish || !area || !zone || !branch) { 
+                alert('⚠️ Please fill in all fields to continue.'); 
+                return; 
+            }
+            
+            studentData = {
+                name: name,
+                parish: parish,
+                area: area,
+                zone: zone,
+                branch: branch
+            };
+
+            document.getElementById('displayStudentName').textContent = '👤 ' + name;
+            document.getElementById('displayParish').textContent = '🏛️ ' + parish;
+            document.getElementById('displayArea').textContent = '📍 ' + area;
+            document.getElementById('displayZone').textContent = '🗺️ ' + zone;
+            
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('examContainer').style.display = 'block';
+            
+            examStartTime = new Date();
+            
+            // Reset timer variables
+            timeRemaining = 900; // 15 minutes
+            gracePeriodActive = false;
+            timerRunning = false;
+            
+            loadQuestion(0);
+            createQuestionPalette();
+            updateTimerDisplay();
+            
+            // START TIMER IMMEDIATELY
+            startTimer();
+        }
+
+        // ==================== TIMER FUNCTIONS (FIXED) ====================
+        function startTimer() {
+            // Prevent multiple timers
+            if (timerRunning) {
+                return;
+            }
+            
+            // Clear any existing interval
+            if (timerInterval !== null) {
+                clearInterval(timerInterval);
+            }
+            
+            timerRunning = true;
+            
+            // Simple 1-second interval timer
+            timerInterval = setInterval(function() {
+                timeRemaining = timeRemaining - 1;
+                
+                // Update display
+                updateTimerDisplay();
+                
+                // Check for grace period transition (when main time reaches 0)
+                if (timeRemaining <= 0 && !gracePeriodActive) {
+                    startGracePeriod();
+                }
+                // Auto submit when grace period ends
+                else if (timeRemaining <= 0 && gracePeriodActive) {
+                    submitExam();
+                }
+            }, 1000); // Exactly 1 second
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const timerElement = document.getElementById('navTimer');
+            
+            if (timerElement) {
+                timerElement.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+                
+                // Turn RED when less than 3 minutes remaining in MAIN time
+                if (timeRemaining <= 180 && !gracePeriodActive) {
+                    timerElement.classList.add('warning');
+                    timerElement.classList.remove('grace');
+                }
+            }
+        }
+
+        function startGracePeriod() {
+            gracePeriodActive = true;
+            const timerElement = document.getElementById('navTimer');
+            
+            // Remove warning class, add grace class
+            if (timerElement) {
+                timerElement.classList.remove('warning');
+                timerElement.classList.add('grace');
+            }
+            
+            // Set grace period to 3 minutes (180 seconds)
+            timeRemaining = 180;
+            
+            // Show grace popup
+            document.getElementById('gracePopup').style.display = 'flex';
+            createConfetti();
+            
+            // Update display immediately
+            updateTimerDisplay();
+        }
+
+        function stopTimer() {
+            if (timerInterval !== null) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timerRunning = false;
+        }
+
+        // ==================== QUESTION FUNCTIONS ====================
+        function loadQuestion(index) {
+            currentQuestion = index;
+            document.getElementById('questionNumber').textContent = 'Question ' + (index + 1) + ' of 50';
+            document.getElementById('questionText').textContent = questions[index].question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questions[index].options.forEach(function(option, i) {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                if (userAnswers[index] === i) { 
+                    optionDiv.classList.add('selected'); 
+                }
+                optionDiv.innerHTML = '<input type="radio" name="option" value="' + i + '" ' + (userAnswers[index] === i ? 'checked' : '') + '><span>' + option + '</span>';
+                optionDiv.addEventListener('click', function() { 
+                    selectOption(i); 
+                });
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            const progressPercent = Math.round(((index + 1) / 50) * 100);
+            const answeredCount = userAnswers.filter(function(a) { return a !== null; }).length;
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+            document.getElementById('progressText').textContent = 'Question ' + (index + 1) + ' of 50 (' + answeredCount + '/50 Answered)';
+            
+            updatePalette();
+            
+            document.getElementById('prevBtn').style.visibility = index === 0 ? 'hidden' : 'visible';
+            
+            if (index === 49) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitBtnBottom').style.display = 'inline-block';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-block';
+                document.getElementById('submitBtnBottom').style.display = 'none';
+            }
+        }
+
+        function selectOption(optionIndex) { 
+            userAnswers[currentQuestion] = optionIndex; 
+            loadQuestion(currentQuestion); 
+            updatePalette(); 
+        }
+        
+        function previousQuestion() { 
+            if (currentQuestion > 0) { 
+                loadQuestion(currentQuestion - 1); 
+            } 
+        }
+        
+        function nextQuestion() { 
+            if (currentQuestion < 49) { 
+                loadQuestion(currentQuestion + 1); 
+            } 
+        }
+
+        function createQuestionPalette() {
+            const palette = document.getElementById('questionPalette');
+            palette.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'palette-btn';
+                btn.textContent = i + 1;
+                btn.id = 'paletteBtn' + i;
+                btn.addEventListener('click', function() { 
+                    loadQuestion(i); 
+                });
+                palette.appendChild(btn);
+            }
+        }
+
+        function updatePalette() {
+            for (let i = 0; i < 50; i++) {
+                const btn = document.getElementById('paletteBtn' + i);
+                btn.classList.remove('active', 'answered');
+                if (i === currentQuestion) { 
+                    btn.classList.add('active'); 
+                }
+                if (userAnswers[i] !== null) { 
+                    btn.classList.add('answered'); 
+                }
+            }
+        }
+
+        // ==================== SUBMIT FUNCTIONS ====================
+        function confirmSubmit() {
+            const answeredCount = userAnswers.filter(function(a) { return a !== null; }).length;
+            const unanswered = 50 - answeredCount;
+            if (unanswered > 0) { 
+                if (!confirm('⚠️ You have ' + unanswered + ' unanswered question(s). Are you sure you want to submit?')) { 
+                    return; 
+                } 
+            } else { 
+                if (!confirm('✓ Are you sure you want to submit your exam?')) { 
+                    return; 
+                } 
+            }
+            submitExam();
+        }
+
+        function submitExam() {
+            // Stop timer
+            stopTimer();
+            
+            examEndTime = new Date();
+            document.getElementById('examContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            document.getElementById('gracePopup').style.display = 'none';
+            document.getElementById('scrollToTop').classList.remove('visible');
+            calculateResults();
+            
+            // Show ADS popup on result page after 1 second
+            setTimeout(function() {
+                document.getElementById('adsPopup').style.display = 'flex';
+            }, 1000);
+        }
+
+        // ==================== RESULTS FUNCTIONS ====================
+        function calculateResults() {
+            let correct = 0; 
+            let wrong = 0;
+            const reviewContainer = document.getElementById('answerReview');
+            reviewContainer.innerHTML = '';
+            
+            for (let i = 0; i < 50; i++) {
+                const isCorrect = userAnswers[i] === questions[i].answer;
+                if (isCorrect) { 
+                    correct++; 
+                } else { 
+                    wrong++; 
+                }
+                
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'review-item ' + (isCorrect ? 'correct' : 'wrong');
+                reviewItem.innerHTML = '<div class="review-question">Q' + (i + 1) + ': ' + questions[i].question + '</div><div class="review-answer"><strong>Your Answer:</strong> ' + (userAnswers[i] !== null ? questions[i].options[userAnswers[i]] : 'Not answered') + '<br><strong>Correct Answer:</strong> ' + questions[i].options[questions[i].answer] + '</div>';
+                reviewContainer.appendChild(reviewItem);
+            }
+            
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('wrongCount').textContent = wrong;
+            const percentage = Math.round((correct / 50) * 100);
+            document.getElementById('percentage').textContent = percentage + '%';
+            document.getElementById('scoreDisplay').textContent = correct + '/50';
+            
+            const timeTaken = Math.floor((examEndTime - examStartTime) / 1000);
+            const minutes = Math.floor(timeTaken / 60);
+            const seconds = timeTaken % 60;
+            document.getElementById('timeTaken').textContent = minutes + ':' + String(seconds).padStart(2, '0');
+            
+            let grade, gradeClass, icon;
+            if (percentage >= 95) { 
+                grade = 'A+'; 
+                gradeClass = 'grade-A-plus'; 
+                icon = '🏆'; 
+            } else if (percentage >= 90) { 
+                grade = 'A'; 
+                gradeClass = 'grade-A'; 
+                icon = '🎉'; 
+            } else if (percentage >= 80) { 
+                grade = 'B'; 
+                gradeClass = 'grade-B'; 
+                icon = '👏'; 
+            } else if (percentage >= 70) { 
+                grade = 'C'; 
+                gradeClass = 'grade-C'; 
+                icon = '👍'; 
+            } else if (percentage >= 60) { 
+                grade = 'D'; 
+                gradeClass = 'grade-D'; 
+                icon = '📚'; 
+            } else { 
+                grade = 'F'; 
+                gradeClass = 'grade-F'; 
+                icon = '💪'; 
+            }
+            
+            document.getElementById('gradeBadge').textContent = grade;
+            document.getElementById('gradeBadge').className = 'grade-badge ' + gradeClass;
+            document.getElementById('resultIcon').textContent = icon;
+            document.getElementById('resultStudentName').textContent = studentData.name;
+            document.getElementById('resultParishInfo').textContent = studentData.parish + ' | ' + studentData.area + ' | ' + studentData.zone;
+            
+            document.getElementById('printName').textContent = studentData.name;
+            document.getElementById('printParish').textContent = studentData.parish;
+            document.getElementById('printArea').textContent = studentData.area;
+            document.getElementById('printZone').textContent = studentData.zone;
+            document.getElementById('printDate').textContent = examStartTime.toLocaleDateString();
+            document.getElementById('printGrade').textContent = grade + ' (' + percentage + '%)';
+            
+            if (percentage >= 70) { 
+                createConfetti(); 
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff', '#FFD700'];
+            for (let i = 0; i < 150; i++) {
+                setTimeout(function() {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(function() { 
+                        confetti.remove(); 
+                    }, 4000);
+                }, i * 20);
+            }
+        }
+
+        function printResult() { 
+            window.print(); 
+        }
+        
+        function restartExam() { 
+            if (confirm('⚠️ Are you sure you want to start a new exam? All current progress will be lost.')) { 
+                location.reload(); 
+            } 
+        }
+
+        function setupScrollButton() {
+            window.addEventListener('scroll', function() {
+                const scrollBtn = document.getElementById('scrollToTop');
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('visible');
+                } else {
+                    scrollBtn.classList.remove('visible');
+                }
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
