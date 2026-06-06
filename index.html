@@ -1098,7 +1098,7 @@
         <div class="welcome-content">
             <button class="welcome-close" onclick="closeWelcomePopup()">×</button>
             <!-- *** INSERT YOUR WELCOME IMAGE URL BELOW *** -->
-            <img src="daddy g.o.jpeg" alt="Welcome" class="welcome-image" id="welcomeImageElement">
+            <img src="thanks.png" alt="Welcome" class="welcome-image" id="welcomeImageElement">
         </div>
     </div>
 
@@ -1305,8 +1305,8 @@
     <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</button>
 
     <script>
-        // ==================== QUESTIONS DATA ====================
-const questions = [
+        // ==================== QUESTIONS DATA (UNCHANGED) ====================
+        const questions = [
 
 { question: "1. The memory verse for 'Get Rich Quick Syndrome' is found in:", options: ["Proverbs 13:11", "Proverbs 22:29", "Ecclesiastes 7:12", "Deuteronomy 8:18"], answer: 0 },
 
@@ -1484,9 +1484,7 @@ const questions = [
 
 ];
 
-];
-
-        // ==================== TIMER VARIABLES ====================
+        // ==================== TIMER & APP VARIABLES ====================
         let currentQuestion = 0;
         let userAnswers = new Array(50).fill(null);
         let timerInterval = null;
@@ -1496,17 +1494,16 @@ const questions = [
         let examEndTime = null;
         let studentData = {};
         let timerRunning = false;
+        let examQuestions = []; // Will hold shuffled questions
 
         // ==================== INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', function() {
             checkBirthday();
             setupSecurity();
             setupScrollButton();
-            // Show welcome popup on page load
             setTimeout(function() {
                 document.getElementById('welcomePopup').style.display = 'flex';
             }, 500);
-            // Initialize timer display
             updateTimerDisplay();
         });
 
@@ -1522,17 +1519,14 @@ const questions = [
             document.getElementById('birthdayPopup').style.display = 'none';
         }
 
-        // ==================== WELCOME POPUP (Before Login) ====================
         function closeWelcomePopup() {
             document.getElementById('welcomePopup').style.display = 'none';
         }
 
-        // ==================== ADS POPUP (On Result Page) ====================
         function closeAdsPopup() {
             document.getElementById('adsPopup').style.display = 'none';
         }
 
-        // ==================== GRACE POPUP ====================
         function closeGracePopup() {
             document.getElementById('gracePopup').style.display = 'none';
         }
@@ -1578,7 +1572,18 @@ const questions = [
             document.getElementById('warningModal').style.display = 'none'; 
         }
 
-        // ==================== EXAM START ====================
+        // ==================== QUESTION SHUFFLING (Fisher-Yates) ====================
+        function shuffleArray(array) {
+            // Create a copy to avoid modifying original
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // ==================== EXAM START - TIMER STARTS IMMEDIATELY ====================
         function startExam() {
             const name = document.getElementById('studentName').value.trim();
             const parish = document.getElementById('parishName').value.trim();
@@ -1599,6 +1604,9 @@ const questions = [
                 branch: branch
             };
 
+            // ✅ SHUFFLE QUESTIONS for this user
+            examQuestions = shuffleArray([...questions]);
+            
             document.getElementById('displayStudentName').textContent = '👤 ' + name;
             document.getElementById('displayParish').textContent = '🏛️ ' + parish;
             document.getElementById('displayArea').textContent = '📍 ' + area;
@@ -1614,44 +1622,32 @@ const questions = [
             gracePeriodActive = false;
             timerRunning = false;
             
+            // ✅ START TIMER IMMEDIATELY - BEFORE UI RENDERING
+            startTimer();
+            
+            // Then load UI
             loadQuestion(0);
             createQuestionPalette();
             updateTimerDisplay();
-            
-            // START TIMER IMMEDIATELY
-            startTimer();
         }
 
-        // ==================== TIMER FUNCTIONS (FIXED) ====================
+        // ==================== TIMER FUNCTIONS ====================
         function startTimer() {
-            // Prevent multiple timers
-            if (timerRunning) {
-                return;
-            }
-            
-            // Clear any existing interval
-            if (timerInterval !== null) {
-                clearInterval(timerInterval);
-            }
+            if (timerRunning) return;
+            if (timerInterval !== null) clearInterval(timerInterval);
             
             timerRunning = true;
             
-            // Simple 1-second interval timer
             timerInterval = setInterval(function() {
                 timeRemaining = timeRemaining - 1;
-                
-                // Update display
                 updateTimerDisplay();
                 
-                // Check for grace period transition (when main time reaches 0)
                 if (timeRemaining <= 0 && !gracePeriodActive) {
                     startGracePeriod();
-                }
-                // Auto submit when grace period ends
-                else if (timeRemaining <= 0 && gracePeriodActive) {
+                } else if (timeRemaining <= 0 && gracePeriodActive) {
                     submitExam();
                 }
-            }, 1000); // Exactly 1 second
+            }, 1000);
         }
 
         function updateTimerDisplay() {
@@ -1662,7 +1658,6 @@ const questions = [
             if (timerElement) {
                 timerElement.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
                 
-                // Turn RED when less than 3 minutes remaining in MAIN time
                 if (timeRemaining <= 180 && !gracePeriodActive) {
                     timerElement.classList.add('warning');
                     timerElement.classList.remove('grace');
@@ -1674,20 +1669,14 @@ const questions = [
             gracePeriodActive = true;
             const timerElement = document.getElementById('navTimer');
             
-            // Remove warning class, add grace class
             if (timerElement) {
                 timerElement.classList.remove('warning');
                 timerElement.classList.add('grace');
             }
             
-            // Set grace period to 3 minutes (180 seconds)
             timeRemaining = 180;
-            
-            // Show grace popup
             document.getElementById('gracePopup').style.display = 'flex';
             createConfetti();
-            
-            // Update display immediately
             updateTimerDisplay();
         }
 
@@ -1703,12 +1692,12 @@ const questions = [
         function loadQuestion(index) {
             currentQuestion = index;
             document.getElementById('questionNumber').textContent = 'Question ' + (index + 1) + ' of 50';
-            document.getElementById('questionText').textContent = questions[index].question;
+            document.getElementById('questionText').textContent = examQuestions[index].question;
             
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';
             
-            questions[index].options.forEach(function(option, i) {
+            examQuestions[index].options.forEach(function(option, i) {
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'option';
                 if (userAnswers[index] === i) { 
@@ -1802,9 +1791,7 @@ const questions = [
         }
 
         function submitExam() {
-            // Stop timer
             stopTimer();
-            
             examEndTime = new Date();
             document.getElementById('examContainer').style.display = 'none';
             document.getElementById('resultContainer').style.display = 'block';
@@ -1812,7 +1799,6 @@ const questions = [
             document.getElementById('scrollToTop').classList.remove('visible');
             calculateResults();
             
-            // Show ADS popup on result page after 1 second
             setTimeout(function() {
                 document.getElementById('adsPopup').style.display = 'flex';
             }, 1000);
@@ -1826,7 +1812,7 @@ const questions = [
             reviewContainer.innerHTML = '';
             
             for (let i = 0; i < 50; i++) {
-                const isCorrect = userAnswers[i] === questions[i].answer;
+                const isCorrect = userAnswers[i] === examQuestions[i].answer;
                 if (isCorrect) { 
                     correct++; 
                 } else { 
@@ -1835,7 +1821,7 @@ const questions = [
                 
                 const reviewItem = document.createElement('div');
                 reviewItem.className = 'review-item ' + (isCorrect ? 'correct' : 'wrong');
-                reviewItem.innerHTML = '<div class="review-question">Q' + (i + 1) + ': ' + questions[i].question + '</div><div class="review-answer"><strong>Your Answer:</strong> ' + (userAnswers[i] !== null ? questions[i].options[userAnswers[i]] : 'Not answered') + '<br><strong>Correct Answer:</strong> ' + questions[i].options[questions[i].answer] + '</div>';
+                reviewItem.innerHTML = '<div class="review-question">Q' + (i + 1) + ': ' + examQuestions[i].question + '</div><div class="review-answer"><strong>Your Answer:</strong> ' + (userAnswers[i] !== null ? examQuestions[i].options[userAnswers[i]] : 'Not answered') + '<br><strong>Correct Answer:</strong> ' + examQuestions[i].options[examQuestions[i].answer] + '</div>';
                 reviewContainer.appendChild(reviewItem);
             }
             
